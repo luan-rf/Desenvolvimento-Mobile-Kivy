@@ -49,3 +49,84 @@ Desenvolvimento de Aplicativos com Python - Kivy/
 ├── main.kv                    # Layout Raiz (Header Fixo + ScreenManager com as 9 telas)
 ├── myfirebase.py              # Módulo de autenticação e comunicação REST com o Firebase
 └── telas.py                   # Declaração das classes de tela
+
+
+
+
+⚡ Fluxo de Funcionamento e Navegação
+Layout Raiz (main.kv):
+
+Define a cor de fundo padrão (#001824).
+
+Mantém a Foto de Perfil fixa no topo (#foto_perfil).
+
+Utiliza um ScreenManager para alternar entre as 9 telas sem recarregar a interface inteira.
+
+Autenticação (loginpage.kv / myfirebase.py):
+
+Ao fazer login/cadastro, o aplicativo salva o refreshToken localmente em refreshtoken.txt.
+
+A cada inicialização, o token é atualizado automaticamente na API do Google Tokens.
+
+Inclusão de Vendas (adicionarvendas.kv / main.py):
+
+O aplicativo carrega dinamicamente as fotos de clientes e produtos da pasta icones/.
+
+Permite selecionar o cliente, produto, unidade (kg, unidades, litros), valor total e quantidade.
+
+O valor é adicionado à lista do usuário no Firebase e o total acumulado do vendedor é atualizado via PATCH.
+
+Rede de Vendedores (adicionarvendedores.kv / bannervendedor.py):
+
+Cada usuário possui um ID Único de Vendedor sequencial (gerado a partir do nó proximo_id_vendedor).
+
+É possível adicionar outros vendedores à sua equipe informando o ID.
+
+Clicar no banner de um colega abre a tela VendasOutroVendedor, buscando em tempo real as vendas daquele ID específico.
+
+🔒 Configuração de Regras de Segurança no Firebase
+No console do Firebase Realtime Database, configure a aba Rules da seguinte forma para garantir o funcionamento das requisições com autenticação:
+
+JSON
+{
+  "rules": {
+    ".read": "auth.uid !== null",
+    ".indexOn": ["id_vendedor"],
+
+    "proximo_id_vendedor": {
+      ".read": "auth.uid !== null",
+      ".write": "auth.uid !== null"
+    },
+
+    "$uid": {
+      ".write": "$uid == auth.uid"
+    }
+  }
+}
+💻 Como Executar o Projeto
+Clone o repositório:
+
+Bash
+git clone [https://github.com/seu-usuario/desenvolvimento-kivy-python.git](https://github.com/seu-usuario/desenvolvimento-kivy-python.git)
+cd desenvolvimento-kivy-python
+Crie e ative o ambiente virtual:
+
+Bash
+python -m venv .venv312
+# Windows:
+.venv312\Scripts\activate
+# Linux/Mac:
+source .venv312/bin/activate
+Instale as dependências:
+
+Bash
+pip install kivy requests python-dotenv
+Configure o arquivo .env:
+Crie o arquivo .env na raiz do projeto com a sua chave de API do Firebase:
+
+Snippet de código
+API_KEY=SuaChaveDeApiWebDoFirebaseAqui
+Inicie a aplicação:
+
+Bash
+python main.py
