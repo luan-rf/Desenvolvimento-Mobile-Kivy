@@ -1,0 +1,78 @@
+#:include kv/homepage.kv
+#:include kv/ajustespage.kv
+#:include kv/adicionarvendas.kv
+#:include kv/listarvendedores.kv
+#:include kv/adicionarvendedores.kv
+#:include kv/mudarfoto.kv
+#:include kv/todasvendas.kv
+#:include kv/loginpage.kv
+#:include kv/vendasoutrovendedor.kv
+#:import utils kivy.utils
+
+FloatLayout:
+
+# configuração de estilo da folha de estilo
+    canvas.before:
+        Color:
+            rgb: utils.get_color_from_hex("#001824")
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+# imagem do perfil, por padrão definido pelo arquivo "hash"
+    Image:
+        pos_hint: {"right": 1, "top": 0.9}
+        size_hint: 1, 0.2
+        source: "icones/hash.png"
+        id: foto_perfil
+
+# definição do gerenciador de telas
+    ScreenManager:
+        pos_hint: {"right": 1, "top": 0.7}
+        size_hint: 1, 0.7
+        id: screen_manager
+
+# tela de login
+        LoginPage:
+            name: "loginpage"
+            id: loginpage
+
+# tela da homepage
+        HomePage:
+            name: "homepage"
+            id: homepage
+
+# tela de ajustes do vendedor
+        AjustesPage:
+            name: "ajustespage"
+            id: ajustespage
+
+# tela de adicionar vendas
+        AdicionarVendas:
+            name: "adicionarvendas"
+            id: adicionarvendas
+
+# tela de listar vendedores
+        ListarVendedores:
+            name: "listarvendedores"
+            id: listarvendedores
+
+# tela de adicionar vendedores
+        AdicionarVendedores:
+            name: "adicionarvendedores"
+            id: adicionarvendedores
+
+# tela de mudar foto perfil
+        MudarFoto:
+            name: "mudarfoto"
+            id: mudarfoto
+
+# tela de listar todas as vendas da empresa
+        TodasVendas:
+            name: "todasvendas"
+            id: todasvendas
+
+# tela de vendas de outros vendedores
+        VendasOutroVendedor:
+            name: "vendasoutrovendedor"
+            id: vendasoutrovendedor

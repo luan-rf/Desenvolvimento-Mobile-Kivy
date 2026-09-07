@@ -1,0 +1,60 @@
+<AdicionarVendedores>:
+    FloatLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "icones/bg1.png"
+
+        # Label principal da página
+        Label:
+            pos_hint: {"right":0.9, "top":0.8}
+            size_hint: 0.8, 0.1
+            bold: True
+            text: "Insira o [color=#00CFDB]ID de outro vendedor[/color] para acompanhá-lo"
+            markup: True
+
+        # Botão para finalizar o processo de acompanhamento
+        LabelButton:
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "icones/botao.png" if self.state == "normal" else "icones/botao_apertado.png"
+            on_release: app.adicionar_vendedor(input_id_outro_vendedor.text)
+            text: "Acompanhar vendedor"
+            pos_hint: {"right": 0.9, "top": 0.55}
+            size_hint: 0.8, 0.2
+
+        # Input do outro vendedor que vai ser acompanhado
+        TextInput:
+            id: input_id_outro_vendedor
+            pos_hint: {"right": 0.9, "top":0.7}
+            size_hint: 0.8, 0.1
+
+        # Texto dinâmico
+        Label:
+            pos_hint: {"right": 0.9, "top":0.4}
+            size_hint: 0.8, 0.1
+            text: ""
+            markup: True
+            bold: True
+            id: mensagem_outrovendedor
+
+
+
+        # Imagem de botão para voltar para a home
+        FloatLayout:
+            pos_hint: {"right": 1, "top":0.15}
+            size_hint: 1, 0.15
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("#006D7E")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            ImageButton:
+                pos_hint: {"right": 0.2 , "top": 0.9}
+                size_hint:  0.2, 0.8
+                source: "icones/voltar.png"
+                on_release: app.mudar_tela("ajustespage")

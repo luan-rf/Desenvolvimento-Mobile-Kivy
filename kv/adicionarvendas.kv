@@ -1,0 +1,133 @@
+<AdicionarVendas>:
+    FloatLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "icones/bg1.png"
+
+        # 1. Seleção de Cliente
+        Label:
+            pos_hint: {"right": 1, "top": 0.98}
+            size_hint: 1, 0.04
+            text: "Selecione o Cliente"
+            bold: True
+            id: label_selecao_cliente
+
+        ScrollView:
+            pos_hint: {"right": 1, "top": 0.94}
+            size_hint: 1, 0.12
+            GridLayout:
+                rows: 1
+                id: lista_clientes
+                size_hint_x: None
+                width: self.minimum_width
+                col_default_width: "100dp"
+                col_force_default: True
+
+        # 2. Seleção de Produto
+        Label:
+            pos_hint: {"right": 1, "top": 0.80}
+            size_hint: 1, 0.04
+            text: "Selecione o Produto"
+            bold: True
+            id: label_selecione_produto
+
+        ScrollView:
+            pos_hint: {"right": 1, "top": 0.76}
+            size_hint: 1, 0.12
+            GridLayout:
+                rows: 1
+                id: lista_produtos
+                size_hint_x: None
+                width: self.minimum_width
+                col_default_width: "100dp"
+                col_force_default: True
+
+        # 3. Data Selecionada
+        Label:
+            id: label_data
+            text: "Data: 01/01/2001"
+            pos_hint: {"right": 1, "top": 0.62}
+            size_hint: 1, 0.04
+            bold: True
+
+        # 4. Seleção de Unidade (kg, unidades, litros)
+        GridLayout:
+            rows: 1
+            pos_hint: {"right": 0.9, "top": 0.56}
+            size_hint: 0.8, 0.05
+            LabelButton:
+                text: "kg"
+                id: unidades_kg
+                on_release: app.selecionar_unidade("unidades_kg")
+            LabelButton:
+                text: "unidades"
+                id: unidades_unidades
+                on_release: app.selecionar_unidade("unidades_unidades")
+            LabelButton:
+                text: "litros"
+                id: unidades_litros
+                on_release: app.selecionar_unidade("unidades_litros")
+
+        # 5. Entradas de Preço e Quantidade
+        GridLayout:
+            rows: 1
+            pos_hint: {"right": 0.9, "top": 0.49}
+            size_hint: 0.8, 0.06
+            Label:
+                text: "Preço Total (R$)"
+                id: label_preco
+            TextInput:
+                id: preco_total
+                hint_text: "Digite apenas números"
+
+        GridLayout:
+            rows: 1
+            pos_hint: {"right": 0.9, "top": 0.41}
+            size_hint: 0.8, 0.06
+            Label:
+                text: "Quantidade total"
+                id: label_quantidade
+            TextInput:
+                id: quantidade_total
+                hint_text: "0"
+
+        # 6. Botões de Ação
+        LabelButton:
+            canvas.before:
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+                    source: "icones/botao.png" if self.state == "normal" else "icones/botao_apertado.png"
+            on_release: app.mudar_tela("homepage")
+            text: "Cancelar"
+            pos_hint: {"right": 0.45, "top": 0.28}
+            size_hint: 0.35, 0.10
+
+        LabelButton:
+            canvas.before:
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+                    source: "icones/botao.png" if self.state == "normal" else "icones/botao_apertado.png"
+            on_release: app.adicionar_venda()
+            text: "Adicionar venda"
+            pos_hint: {"right": 0.90, "top": 0.28}
+            size_hint: 0.35, 0.10
+
+        # 7. Rodapé / Botão Voltar
+        FloatLayout:
+            pos_hint: {"right": 1, "top": 0.15}
+            size_hint: 1, 0.15
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("#006D7E")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            ImageButton:
+                pos_hint: {"right": 0.2, "top": 0.9}
+                size_hint: 0.2, 0.8
+                source: "icones/voltar.png"
+                on_release: app.mudar_tela("homepage")

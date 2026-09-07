@@ -1,0 +1,87 @@
+<AjustesPage>:
+    FloatLayout:
+# configuração de estilo da folha de estilo
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "icones/bg1.png"
+
+# label com informação do ID do vendedor logado
+        Label:
+# edição de canvas do label com a imagem personalizada para botão
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "icones/botao_fino.png"
+
+# informações e posicionamento do label
+            pos_hint: {"right":0.85, "top":0.95}
+            size_hint: 0.7, 0.2
+            bold: True
+            text: "Seu ID de vendedor: 1"
+            id: id_vendedor
+
+# mudar foto de perfil
+        ImageButton:
+            pos_hint: {"right": 0.5, "top": 0.75}
+            size_hint: 0.5, 0.15
+            source: "icones/foto_perfil.PNG"
+                # necessário construir a tela para alterar a foto ainda, depois que criada, aplicar a função de mudar_tela
+            on_release: app.mudar_tela("mudarfoto")
+        LabelButton:
+            pos_hint: {"right": 0.9, "top": 0.75}
+            size_hint: 0.5, 0.15
+            text: "Mudar foto de perfil"
+                # necessário construir a tela para alterar a foto ainda, depois que criada, aplicar a função de mudar_tela
+            on_release: app.mudar_tela("mudarfoto")
+
+
+# adicionar vendedor
+        ImageButton:
+            pos_hint: {"right": 0.5, "top": 0.55}
+            size_hint: 0.5, 0.15
+            source: "icones/adicionar_vendedor.png"
+                # necessário construir a tela para alterar a foto ainda, depois que criada, aplicar a função de mudar_tela
+            on_release: app.mudar_tela("adicionarvendedores")
+        LabelButton:
+            pos_hint: {"right": 0.9, "top": 0.55}
+            size_hint: 0.5, 0.15
+            text: "Adicionar vendedor"
+                # necessário construir a tela para alterar a foto ainda, depois que criada, aplicar a função de mudar_tela
+            on_release: app.mudar_tela("adicionarvendedores")
+
+
+# ver todas as vendas da empresa
+        ImageButton:
+            pos_hint: {"right": 0.5, "top": 0.35}
+            size_hint: 0.5, 0.15
+            source: "icones/vendas_empresa.png"
+                # necessário construir a tela para alterar a foto ainda, depois que criada, aplicar a função de mudar_tela
+            on_release: app.carregar_todas_vendas()
+        LabelButton:
+            pos_hint: {"right": 0.9, "top": 0.35}
+            size_hint: 0.5, 0.15
+            text: "Acompanhar vendas da empresa"
+                # necessário construir a tela para alterar a foto ainda, depois que criada, aplicar a função de mudar_tela
+            on_release: app.carregar_todas_vendas()
+
+
+# botao de voltar
+# configuração da cor e do posicionamento de fundo do floatlayout e canvas
+        FloatLayout:
+            pos_hint: {"right": 1, "top":0.15}
+            size_hint: 1, 0.15
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("#006D7E")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+# imagem de botão para voltar para a home
+            ImageButton:
+                pos_hint: {"right": 0.2 , "top": 0.9}
+                size_hint:  0.2, 0.8
+                source: "icones/voltar.png"
+                on_release: app.mudar_tela("homepage")

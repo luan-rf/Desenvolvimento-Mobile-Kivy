@@ -1,0 +1,67 @@
+<HomePage>:
+    FloatLayout:
+
+# configuração de estilo da folha de estilo
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "icones/bg1.png"
+
+# texto com informações de venda
+        Label:
+
+# edição de canvas do label com a imagem personalizada para botão
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "icones/botao_fino.png"
+
+# informações e posicionamento do label
+            pos_hint: {"right":0.85, "top":0.95}
+            size_hint: 0.7, 0.2
+            text: "Total de vendas: R$"
+            id: label_total_vendas
+            markup: True
+
+# "objeto" que vai conter os itens, mas que serão "scrollables" pro usuário pra cima e pra baixo
+        ScrollView:
+            pos_hint: {"right": 1,"top": 0.75}
+            size_hint: 1, 0.63
+
+            # layout que vão ter os itens de venda vindos do banco
+            GridLayout:
+                id: lista_vendas
+                cols: 1
+                spacing: "8dp"          # Adiciona espaço entre cada card de venda
+                padding: ["10dp", "5dp"] # Margem nas laterais do scroll
+
+                # parametros padrão para o tipo de scroll
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: "105dp"  # Aumentado para não encostar na barra inferior
+                row_force_default: True
+
+
+# GridLayout pros botões com ediçoes de posicionamento e canvas para ir para tela de ajustes
+        GridLayout:
+            rows: 1
+            pos_hint: {"right": 1, "top":0.15}
+            size_hint: 1, 0.15
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("#006D7E")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+# botoes de adicionar venda, lista de vendedores e tela de ajustes
+            ImageButton:
+                source: "icones/add.png"
+                on_release: app.mudar_tela("adicionarvendas")
+            ImageButton:
+                source: "icones/salesman.png"
+                on_release: app.mudar_tela("listarvendedores")
+            ImageButton:
+                source: "icones/settings.png"
+                on_release: app.mudar_tela("ajustespage")
